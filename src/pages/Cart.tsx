@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface CartItem {
   _id: string;
@@ -10,6 +12,7 @@ interface CartItem {
 
 const Cart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -35,9 +38,51 @@ const Cart: React.FC = () => {
     0
   );
 
+  const handleCheckout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You must be logged in to checkout");
+        return;
+      }
+
+      const res = await axios.post(
+        "http://localhost:5000/api/orders",
+        {
+          items: cartItems.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          total,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // send token
+          },
+        }
+      );
+
+      alert("Order created successfully!");
+      console.log("Order: ", res.data);
+
+      //empty cart
+      localStorage.removeItem("cart");
+      setCartItems([]);
+
+      navigate("/ordersummary");
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      alert("Something went wrong during checkout.");
+    }
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      <p>
+        Click here to see all your Orders.
+        <Link to="/ordersummary">My Orders</Link>
+      </p>
       {cartItems.length === 0 ? (
         <p>
           Your cart is empty. <Link to="/products">Go shopping</Link>
@@ -66,7 +111,10 @@ const Cart: React.FC = () => {
             </div>
           ))}
           <div className="mt-4 font-bold">Total: ${total}</div>
-          <button className="mt-2 bg-blue-500 text-white p-2 rounded">
+          <button
+            onClick={handleCheckout}
+            className="mt-2 bg-blue-500 text-white p-2 rounded"
+          >
             Proceed to Checkout
           </button>
         </div>

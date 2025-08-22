@@ -7,6 +7,10 @@ import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
 import OrderSummary from "./components/OrderSummary";
 import Register from "./pages/Register";
+import AdminOrders from "./pages/AdminOrders";
+import LayoutAdmin from "./components/LayoutAdmin";
+import AdminProducts from "./pages/AdminProducts";
+import AdminCreateProduct from "./pages/AdminCreateProduct";
 
 
 const App: React.FC = () => {
@@ -20,6 +24,13 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Layout><Login /></Layout>} />
         <Route path="/ordersummary" element={<Layout><OrderSummary /></Layout>} />
+
+        <Route path="/admin" element={<LayoutAdmin />}>
+           <Route path="orders" element={<AdminOrders />} />
+           <Route path="products" element={<AdminProducts />} />
+           <Route path="products/create" element={<AdminCreateProduct />} />
+          
+        </Route>      
       </Routes>
     </BrowserRouter>
   );

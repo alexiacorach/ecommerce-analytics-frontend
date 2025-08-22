@@ -16,13 +16,18 @@ const Login: React.FC = () => {
         email,
         password,
       });
+       const { token, user } = res.data;
 
       //save token in localstorage
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role);
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
 
-      //redirect Home
+      // Redirigimos según rol
+    if (user.role === "admin") {
+      navigate("/admin/orders");
+    } else {
       navigate("/");
+    }
     } catch (err) {
       console.error(err);
       setError("Invalid credentials");

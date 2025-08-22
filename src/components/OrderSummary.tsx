@@ -5,35 +5,52 @@ const OrderSummary = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          alert("You must be logged in to see your orders");
-          return;
-        }
-
-        const res = await axios.get("http://localhost:5000/api/orders", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setOrders(res.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoading(false);
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You must be logged in to see your orders");
+        return;
       }
-    };
 
+      const res = await axios.get("http://localhost:5000/api/orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setOrders(res.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchOrders();
   }, []);
+
+  const handleCancel = async (orderId: string) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `http://localhost:5000/api/orders/${orderId}/cancel`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert("Order canceled successfully!");
+      fetchOrders();
+    } catch (error) {
+      console.error("Error canceling order:", error);
+      alert("Could not cancel the order.");
+    }
+  };
+
   if (loading) return <p>Loading your orders...</p>;
 
   if (orders.length === 0) return <p>No orders yet.</p>;
-
   return (
     <div>
       <h2>Your Orders</h2>
@@ -51,6 +68,7 @@ const OrderSummary = () => {
           <p>
             <strong>Total:</strong> ${order.total}
           </p>
+
           <ul>
             {order.items.map((item: any, index: number) => (
               <li key={index}>
@@ -58,6 +76,15 @@ const OrderSummary = () => {
               </li>
             ))}
           </ul>
+
+          {order.status === "pending" && (
+            <button
+              onClick={() => handleCancel(order._id)}
+              className="cancel-btn"
+            >
+              Cancel Order
+            </button>
+          )}
         </div>
       ))}
     </div>

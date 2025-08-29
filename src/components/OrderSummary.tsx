@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const OrderSummary = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -51,6 +52,7 @@ const OrderSummary = () => {
   if (loading) return <p>Loading your orders...</p>;
 
   if (orders.length === 0) return <p>No orders yet.</p>;
+
   return (
     <div>
       <h2>Your Orders</h2>
@@ -76,6 +78,9 @@ const OrderSummary = () => {
               </li>
             ))}
           </ul>
+          <Link to={`/orders/${order._id}`} className="text-blue-500 underline">
+            View Details
+          </Link>
 
           {order.status === "pending" && (
             <button

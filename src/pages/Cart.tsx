@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 interface CartItem {
   _id: string;
@@ -37,45 +36,8 @@ const Cart: React.FC = () => {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-
-  const handleCheckout = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("You must be logged in to checkout");
-        return;
-      }
-
-      const res = await axios.post(
-        "http://localhost:5000/api/orders",
-        {
-          items: cartItems.map((item) => ({
-            product: item._id,
-            quantity: item.quantity,
-          })),
-          total,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // send token
-          },
-        }
-      );
-
-      alert("Order created successfully!");
-      console.log("Order: ", res.data);
-
-      //empty cart
-      localStorage.removeItem("cart");
-      setCartItems([]);
-
-      navigate("/ordersummary");
-    } catch (error) {
-      console.error("Error during checkout:", error);
-      alert("Something went wrong during checkout.");
-    }
-  };
-
+  
+  
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
@@ -111,8 +73,9 @@ const Cart: React.FC = () => {
             </div>
           ))}
           <div className="mt-4 font-bold">Total: ${total}</div>
+
           <button
-            onClick={handleCheckout}
+            onClick={() => navigate("/checkout")}
             className="mt-2 bg-blue-500 text-white p-2 rounded"
           >
             Proceed to Checkout

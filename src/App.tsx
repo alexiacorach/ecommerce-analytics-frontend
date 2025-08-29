@@ -11,6 +11,9 @@ import AdminOrders from "./pages/AdminOrders";
 import LayoutAdmin from "./components/LayoutAdmin";
 import AdminProducts from "./pages/AdminProducts";
 import AdminCreateProduct from "./pages/AdminCreateProduct";
+import AdminAnalytics from "./pages/AdminAnalytics";
+import OrderDetail from "./components/OrderDetail";
+import CheckoutForm from "./components/CheckoutForm";
 
 
 const App: React.FC = () => {
@@ -19,16 +22,20 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/products" element={<Layout><Products /></Layout>} />
-        <Route path="/cart" element={<Layout><Cart /></Layout>} />
+        <Route path="/cart" element={<Layout><Cart/></Layout>} />
         <Route path="/products/:id" element={<Layout><ProductDetail /></Layout>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Layout><Login /></Layout>} />
         <Route path="/ordersummary" element={<Layout><OrderSummary /></Layout>} />
+        <Route path="/orders/:id" element={<Layout><OrderDetail/></Layout>}/>
+        <Route path="/checkout" element={<Layout><CheckoutForm/></Layout>}/>
+
 
         <Route path="/admin" element={<LayoutAdmin />}>
            <Route path="orders" element={<AdminOrders />} />
            <Route path="products" element={<AdminProducts />} />
            <Route path="products/create" element={<AdminCreateProduct />} />
+           <Route path="analytics" element={<AdminAnalytics />} />
           
         </Route>      
       </Routes>

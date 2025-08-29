@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { LowStockAdmin } from "../components/LowStockAdmin";
 
 interface Product {
   _id: string;
@@ -198,6 +199,7 @@ const AdminProducts: React.FC = () => {
         ))}
       </tbody>
     </table>
+    <LowStockAdmin/>
   </div>
 );
 };

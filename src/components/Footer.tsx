@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white py-6 text-center">
+    <footer className="text-black text-center p-4" style={{ backgroundColor: "#ddd6fe" }}>
       <p>&copy; {new Date().getFullYear()} Ecommerce Analytics. All rights reserved.</p>
     </footer>
   );

@@ -31,20 +31,24 @@ const Product: React.FC = () => {
 
   if (loading) return <p>Loading products...</p>;
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-      {products.map((product) => (
-        <Link to={`/products/${product._id}`}key={product._id}>
-          <ProductCard
-            key={product._id}
-            id={product._id}
-            name={product.name}
-            category={product.category}
-            price={product.price}
-            stock={product.stock}
-          />
-        </Link>
-      ))}
+return (
+    <div className="container my-4">
+      <h2 className="mb-4">Products</h2>
+      <div className="row g-4">
+        {products.map((product) => (
+          <div key={product._id} className="col-sm-6 col-md-4 col-lg-3">
+            <Link to={`/products/${product._id}`} className="text-decoration-none">
+              <ProductCard
+                id={product._id}
+                name={product.name}
+                category={product.category}
+                price={product.price}
+                stock={product.stock}
+              />
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

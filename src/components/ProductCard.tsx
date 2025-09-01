@@ -15,14 +15,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
   category,
 }) => {
   return (
-    <div className="border rounded p-4 shadow-sm">
-      <h3 className="font-bold">{name}</h3>
-      <p>Category: {category}</p>
-      <p>Price: ${price}</p>
-      <p>Stock: {stock}</p>
-      <button className="mt-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-        Add to Cart
-      </button>
+    <div className="card h-100 shadow-sm">
+       <img
+        src={`https://via.placeholder.com/300x200?text=${name}`}
+        className="card-img-top"
+        alt={name}
+      />
+      <div className="card-body d-flex flex-column">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text mb-1">Category: {category}</p>
+        <p className="card-text mb-1">Price: ${price}</p>
+        <p className="card-text mb-3">Stock: {stock}</p>
+        
+       <button
+          className="btn mt-auto text-white"
+          style={{
+            backgroundColor: "#8b5cf6", // purple-500
+            borderColor: "#8b5cf6",
+            transition: "background-color 0.3s",
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#a78bfa")} // purple-400 hover
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#8b5cf6")}
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 };

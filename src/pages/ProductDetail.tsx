@@ -52,34 +52,53 @@ const ProductDetail: React.FC = () => {
   if (!product) return <p>Product not found</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-      <p className="text-gray-500 mb-1">Category: {product.category}</p>
-      <p className="text-gray-700 mb-1">Price: ${product.price}</p>
-      <p className="text-gray-700 mb-1">Stock: {product.stock}</p>
-      {product.description && <p className="mt-2">{product.description}</p>}
+    <div className="container my-4">
+      <div className="row">
+        {/* Imagen */}
+        <div className="col-md-6 mb-3">
+          <img
+            src={`https://via.placeholder.com/500x400?text=${product.name}`}
+            alt={product.name}
+            className="img-fluid rounded shadow-sm"
+          />
+        </div>
 
-      <div className="mb-2">
-        <label htmlFor="quantity" className="mr-2">
-          Quantity:
-        </label>
-        <input
-          id="quantity"
-          type="number"
-          min={1}
-          max={product.stock}
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          className="border rounded p-1 w-16"
-        />
+        {/* Detalles */}
+        <div className="col-md-6 d-flex flex-column">
+          <h1 className="mb-3">{product.name}</h1>
+          <p className="text-muted mb-1">Category: {product.category}</p>
+          <p className="mb-1">Price: <strong>${product.price}</strong></p>
+          <p className="mb-3">Stock: {product.stock}</p>
+          {product.description && <p className="mb-3">{product.description}</p>}
+
+          <div className="d-flex align-items-center mb-3">
+            <label htmlFor="quantity" className="me-2 mb-0">Quantity:</label>
+            <input
+              id="quantity"
+              type="number"
+              min={1}
+              max={product.stock}
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              className="form-control w-25"
+            />
+          </div>
+
+          <button
+            onClick={handleAddToCart}
+            className="btn mt-auto text-white"
+            style={{
+              backgroundColor: "#8b5cf6",
+              borderColor: "#8b5cf6",
+              transition: "background-color 0.3s",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#a78bfa")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#8b5cf6")}
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
-      
-      <button
-        onClick={handleAddToCart}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Add to Cart
-      </button>
     </div>
   );
 };

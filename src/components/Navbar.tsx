@@ -4,30 +4,85 @@ import { ShoppingCart } from "lucide-react";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-900 text-white">
-      {/* Logo / Brand */}
-      <Link to="/" className="text-2xl font-bold">
-        Ecommerce
-      </Link>
-
-      {/* Navigation Links */}
-      <div className="flex space-x-6">
-        <Link to="/" className="hover:text-gray-300">
-          Home
+    <nav
+      className="navbar navbar-expand-lg"
+      style={{ backgroundColor: "#ddd6fe" }}
+    >
+      <div className="container-fluid">
+        {/* Logo / Brand */}
+        <Link className="navbar-brand black" to="/">
+          Ecommerce
         </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-        <Link to="/products" className="hover:text-gray-300">
-          Products
-        </Link>
+        {/* Navigation Links */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                } text-white`}
+                aria-current={location.pathname === "/" ? "page" : undefined}
+                to="/"
+              >
+                Home
+              </Link>
+            </li>
 
-        <Link to="/cart" className="hover:text-gray-300 flex items-center">
-          <ShoppingCart className="w-5 h-5 mr-1" /> Cart
-        </Link>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/products" ? "active" : ""
+                } text-white`}
+                aria-current={
+                  location.pathname === "/products" ? "page" : undefined
+                }
+                to="/products"
+              >
+                Products
+              </Link>
+            </li>
 
-        <Link to="/login" className="hover:text-gray-300">
-          Login
-        </Link>
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/cart" ? "active" : ""
+                } text-white`}
+                aria-current={
+                  location.pathname === "/cart" ? "page" : undefined
+                }
+                to="/cart"
+              >
+                <ShoppingCart /> Cart
+              </Link>
+            </li>
 
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/login" ? "active" : ""
+                } text-white`}
+                aria-current={
+                  location.pathname === "/login" ? "page" : undefined
+                }
+                to="/login"
+              >
+                Login
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );

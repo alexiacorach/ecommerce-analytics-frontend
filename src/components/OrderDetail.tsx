@@ -50,55 +50,86 @@ const OrderDetail = () => {
   if (loading) return <p>Loading order details...</p>;
   if (!order) return <p>Order not found</p>;
 
-  const {shippingAddress} = order;
+  const { shippingAddress } = order;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-2">Order Detail</h2>
-      <p><strong>Order ID:</strong> {order._id}</p>
-      <p><strong>Status:</strong> {order.status}</p>
-      <p><strong>Total:</strong> ${order.total}</p>
-      <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-      <h3 className="mt-4 font-semibold">Shipping Address</h3>
-      {shippingAddress ? (
-        <div className="ml-2">
-          <p><strong>Street: </strong>{shippingAddress.street}</p>
-          <p><strong>City: </strong>{shippingAddress.city}, {shippingAddress.state}</p>
-          <p><strong>Postal Code: </strong>{shippingAddress.postalCode}</p>
-          <p><strong>Country: </strong>{shippingAddress.country}</p>
-        </div>
-      ) : (
-        <p>Not provided</p>
-      )}
+    <div className="container my-4">
+      <div className="card shadow-sm p-4">
+        <h2 className="text-xl font-bold mb-3">Order Detail</h2>
+        <p>
+          <strong>Order ID:</strong> {order._id}
+        </p>
+        <p>
+          <strong>Status:</strong> 
+          <span className={`badge ms-2 ${order.status === "pending" ? "bg-warning text-dark" : "bg-success"}`}>
+            {order.status}
+          </span>
+        </p>
+        <p>
+          <strong>Total:</strong> ${order.total}
+        </p>
+        <p>
+          <strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}
+        </p>
+        <h3 className="mt-4 font-semibold">Shipping Address</h3>
+        {shippingAddress ? (
+          <div >
+            <p>
+              <strong>Street: </strong>
+              {shippingAddress.street}
+            </p>
+            <p>
+              <strong>City: </strong>
+              {shippingAddress.city}, {shippingAddress.state}
+            </p>
+            <p>
+              <strong>Postal Code: </strong>
+              {shippingAddress.postalCode}
+            </p>
+            <p>
+              <strong>Country: </strong>
+              {shippingAddress.country}
+            </p>
+          </div>
+        ) : (
+          <p>Not provided</p>
+        )}
 
-      <h3 className="mt-4 font-semibold">Payment Info</h3>
-      <p><strong>Method:</strong> {order.paymentInfo?.method || "Not provided"}</p>
-      <p><strong>Status:</strong> {order.paymentInfo?.status || "Pending"}</p>
+        <h3 className="mt-4 font-semibold">Payment Info</h3>
+        <p>
+          <strong>Method:</strong> {order.paymentInfo?.method || "Not provided"}
+        </p>
+        <p>
+          <strong>Status:</strong> {order.paymentInfo?.status || "Pending"}
+        </p>
 
-      {order.paymentInfo?.status !== "paid" && (
-        <button
-          onClick={handlePay}
-          className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        {order.paymentInfo?.status !== "paid" && (
+          <button
+            onClick={handlePay}
+            className="mt-2 btn btn-success"
+          >
+            Simulate Payment
+          </button>
+        )}
+
+        <h3 className="mt-4 font-semibold">Items</h3>
+        <ul className="list-group list-group-flush mb-3">
+          {order.items.map((item: any, index: number) => (
+            <li key={index}>
+              {item.product?.name} - {item.quantity} x ${item.price}
+            </li>
+          ))}
+        </ul>
+
+        <Link
+          to="/ordersummary"
+          className="mt-3 d-inline-block text-decoration-none" style={{ color: "#8b5cf6" }}
         >
-          Simulate Payment
-        </button>
-      )}
-
-      <h3 className="mt-4 font-semibold">Items</h3>
-      <ul>
-        {order.items.map((item: any, index: number) => (
-          <li key={index}>
-            {item.product?.name} - {item.quantity} x ${item.price}
-          </li>
-        ))}
-      </ul>
-
-      <Link to="/ordersummary" className="mt-4 inline-block text-blue-500 underline">
-        Back to Orders
-      </Link>
+          Back to Orders
+        </Link>
+      </div>
     </div>
   );
 };
 
 export default OrderDetail;
-

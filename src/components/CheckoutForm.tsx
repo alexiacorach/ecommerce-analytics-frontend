@@ -95,92 +95,102 @@ const CheckoutForm: React.FC = () => {
   
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 p-4 border rounded bg-gray-50">
-      <h2 className="text-lg font-bold mb-2">Shipping & Payment</h2>
+    <div className="container my-4">
+      <div className="card shadow-sm p-4">
+        <h2 className="text-xl font-bold mb-3" style={{ color: "#8b5cf6" }}>Shipping & Payment</h2>
 
-      <div className="mb-2">
-        <label className="block mb-1">Street:</label>
-        <input
-          type="text"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="Street"
-          required
-        />
-      </div>
+        <div className="row g-3">
+          <div className="col-12 col-md-6">
+            <label className="form-label">Street</label>
+            <input
+              type="text"
+              className="form-control"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              placeholder="Street"
+              required
+            />
+          </div>
 
-      <div className="mb-2">
-        <label className="block mb-1">City:</label>
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="City"
-          required
-        />
-      </div>
+          <div className="col-12 col-md-6">
+            <label className="form-label">City</label>
+            <input
+              type="text"
+              className="form-control"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="City"
+              required
+            />
+          </div>
 
-      <div className="mb-2">
-        <label className="block mb-1">State:</label>
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="State"
-          required
-        />
-      </div>
+          <div className="col-12 col-md-4">
+            <label className="form-label">State</label>
+            <input
+              type="text"
+              className="form-control"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              placeholder="State"
+              required
+            />
+          </div>
 
-      <div className="mb-2">
-        <label className="block mb-1">Postal Code:</label>
-        <input
-          type="text"
-          value={postalCode}
-          onChange={(e) => setPostalCode(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="Postal Code"
-          required
-        />
-      </div>
+          <div className="col-12 col-md-4">
+            <label className="form-label">Postal Code</label>
+            <input
+              type="text"
+              className="form-control"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              placeholder="Postal Code"
+              required
+            />
+          </div>
 
-      <div className="mb-4">
-        <label className="block mb-1">Country:</label>
-        <input
-          type="text"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="Country"
-          required
-        />
-      </div>
+          <div className="col-12 col-md-4">
+            <label className="form-label">Country</label>
+            <input
+              type="text"
+              className="form-control"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              placeholder="Country"
+              required
+            />
+          </div>
 
-      <div className="mb-4">
-        <label className="block mb-1">Payment Method:</label>
-        <select
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-          className="w-full border p-2 rounded"
+          <div className="col-12">
+            <label className="form-label">Payment Method</label>
+            <select
+              className="form-select"
+              value={paymentMethod}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            >
+              <option value="credit_card">Credit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="cash_on_delivery">Cash on Delivery</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="mt-3 fw-bold">Total: ${total}</div>
+
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          disabled={loading}
+          className="btn"
+          style={{
+            backgroundColor: "#8b5cf6", 
+            color: "white",
+            marginTop: "10px",
+          }}
         >
-          <option value="credit_card">Credit Card</option>
-          <option value="paypal">PayPal</option>
-          <option value="cash_on_delivery">Cash on Delivery</option>
-        </select>
+          {loading ? "Processing..." : "Place Order"}
+        </button>
       </div>
-
-      <div className="font-bold mb-2">Total: ${total}</div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-      >
-        {loading ? "Processing..." : "Place Order"}
-      </button>
-    </form>
+    </div>
   );
 };
 

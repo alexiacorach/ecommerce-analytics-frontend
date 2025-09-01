@@ -9,11 +9,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <main className="container mx-auto mt-4">{children}</main>
+      <main className="flex-grow-1 container my-4">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

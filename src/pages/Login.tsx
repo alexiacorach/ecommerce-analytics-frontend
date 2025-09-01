@@ -34,45 +34,49 @@ const Login: React.FC = () => {
     }
   };
 
-  return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded-2xl shadow-md w-80"
-      >
-        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+ return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card shadow-lg p-4" style={{ width: "100%", maxWidth: "400px", borderRadius: "1rem" }}>
+        <h2 className="text-center mb-4" style={{ color: "#8b5cf6" }}>Login</h2>
 
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+        {error && <div className="alert alert-danger">{error}</div>}
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full mb-3 p-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form onSubmit={handleLogin}>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full mb-3 p-2 border rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Login
-        </button>
-      </form>
-      <div>
-        <p>
-          Click here if you don't have a User yet
-          <Link to="/register"> Register new user</Link>
+          <button
+            type="submit"
+            className="btn w-100 text-white"
+            style={{ backgroundColor: "#8b5cf6" }}
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="text-center mt-3">
+          Don't have an account? <Link to="/register" style={{ color: "#ec4899" }}>Register</Link>
         </p>
       </div>
     </div>

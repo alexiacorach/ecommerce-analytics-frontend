@@ -53,45 +53,54 @@ const OrderSummary = () => {
 
   if (orders.length === 0) return <p>No orders yet.</p>;
 
-  return (
-    <div>
-      <h2>Your Orders</h2>
-      {orders.map((order) => (
-        <div
-          key={order._id}
-          style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}
-        >
-          <p>
-            <strong>Order ID:</strong> {order._id}
-          </p>
-          <p>
-            <strong>Status:</strong> {order.status}
-          </p>
-          <p>
-            <strong>Total:</strong> ${order.total}
-          </p>
+ return (
+    <div className="container my-4">
+      <h2 className="mb-4">Your Orders</h2>
+      <div className="row g-4">
+        {orders.map((order) => (
+          <div key={order._id} className="col-12">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <p><strong>Order ID:</strong> {order._id}</p>
+                <p>
+                  <strong>Status:</strong>{" "}
+                  <span className={`badge ${order.status === "pending" ? "bg-warning text-dark" : "bg-success"}`}>
+                    {order.status}
+                  </span>
+                </p>
+                <p><strong>Total:</strong> ${order.total}</p>
 
-          <ul>
-            {order.items.map((item: any, index: number) => (
-              <li key={index}>
-                {item.product?.name} - {item.quantity} x ${item.price}
-              </li>
-            ))}
-          </ul>
-          <Link to={`/orders/${order._id}`} className="text-blue-500 underline">
-            View Details
-          </Link>
+                <ul className="list-group list-group-flush mb-3">
+                  {order.items.map((item: { product?: { name: string }; quantity: number; price: number }, index: number) => (
+                    <li key={index} className="list-group-item px-0">
+                      {item.product?.name} - {item.quantity} x ${item.price}
+                    </li>
+                  ))}
+                </ul>
 
-          {order.status === "pending" && (
-            <button
-              onClick={() => handleCancel(order._id)}
-              className="cancel-btn"
-            >
-              Cancel Order
-            </button>
-          )}
-        </div>
-      ))}
+                <div className="d-flex justify-content-between align-items-center flex-wrap">
+                  <Link
+                    to={`/orders/${order._id}`}
+                    className="text-decoration-none"
+                    style={{ color: "#8b5cf6" }} // purple-500
+                  >
+                    View Details
+                  </Link>
+
+                  {order.status === "pending" && (
+                    <button
+                      onClick={() => handleCancel(order._id)}
+                      className="btn btn-outline-danger btn-sm"
+                    >
+                      Cancel Order
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

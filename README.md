@@ -1,4 +1,4 @@
-# 📦 Package Tracking Frontend
+# 📦 Ecommerce Analytics API
 
 Este es el **frontend** de la API RESTful de sistema de comercio electrónico.  
 Está desarrollado en **React + TypeScript**, con estilos responsivos en **Bootstrap**.  
@@ -16,6 +16,7 @@ Se conecta con el **backend** ya implementado en este repositorio 👉 [ecommerc
   - Lista de ítems con nombre, cantidad y precio.
   - Información de pago.
 - **Simulación de pago** (el cliente puede marcar su orden como pagada).
+- **Descuento del Stock de Productos**
 - **Resumen de órdenes** con todo su historial.
 
 ### 🛠️ Administrador

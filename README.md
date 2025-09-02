@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# 📦 Package Tracking Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el **frontend** de la API RESTful de sistema de comercio electrónico.  
+Está desarrollado en **React + TypeScript**, con estilos responsivos en **Bootstrap**.  
+Se conecta con el **backend** ya implementado en este repositorio 👉 [ecommerce-analytics](https://github.com/alexiacorach/ecommerce-analytics).  
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 👤 Cliente
+- **Registro y Login de usuarios** (con JWT).
+- **Visualización de productos y carrito de compras**.
+- **Checkout con formulario de envío** (dirección, ciudad, código postal, país).
+- **Creación de órdenes de compra**.
+- **Detalle de órdenes** con:
+  - Estado de la orden (pendiente, pagada, enviada, entregada).
+  - Lista de ítems con nombre, cantidad y precio.
+  - Información de pago.
+- **Simulación de pago** (el cliente puede marcar su orden como pagada).
+- **Resumen de órdenes** con todo su historial.
 
-## Expanding the ESLint configuration
+### 🛠️ Administrador
+- **Gestión de órdenes** (visualización de todas las órdenes creadas).
+- **Dashboard de Analytics**:
+  - Gráficos y estadísticas de ventas.
+  - Ingresos totales.
+  - Órdenes por estado.
+  - Productos más vendidos.
+  - Métricas clave para la toma de decisiones.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tecnologías utilizadas
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [React]
+- [TypeScript]
+- [Bootstrap] para diseño responsive
+- [Axios] para llamadas a la API
+- [ReactRouter] para navegación entre vistas
+- [Recharts] para gráficos y visualizaciones
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🔄 Flujo del cliente
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Registro/Login** → acceso con token JWT almacenado en `localStorage`.
+2. **Selecciona productos** y los añade al **carrito**.
+3. **Completa CheckoutForm** con datos de envío.
+4. **Confirma la orden** → se guarda en la base de datos vía API.
+5. Desde **OrderDetail**, el cliente puede:
+   - Ver el estado de la orden.
+   - Revisar los ítems comprados.
+   - Simular un pago → cambia el estado a *pagada*.
+6. Desde **OrderSummary**, el cliente ve todas sus órdenes.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔄 Flujo del administrador
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Login como administrador**.  
+2. Acceso al **Dashboard** con:
+   - Gráfico de ingresos totales.
+   - Número de órdenes creadas, pagadas y enviadas.
+   - Ranking de productos más vendidos.
+   - Estadísticas en tiempo real de actividad del sistema.
+3. Posibilidad de crear productos y agregarlos al ecommerce.   
+4. Posibilidad de **gestionar órdenes** (ver detalles, cambiar estado). 

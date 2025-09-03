@@ -34,62 +34,71 @@ const AdminCreateProduct: React.FC = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Create New Product</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <label>
-          Product Name:
+<div className="container py-4">
+  <div className="card mx-auto" style={{ maxWidth: "500px" }}>
+    <div className="card-header bg-dark text-white">
+      <h5 className="mb-0">Create New Product</h5>
+    </div>
+    <div className="card-body">
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Product Name:</label>
           <input
             type="text"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="border p-2 rounded"
+            className="form-control"
           />
-        </label>
+        </div>
 
-        <label>
-          Product Category:
+        <div className="mb-3">
+          <label className="form-label">Product Category:</label>
           <input
             type="text"
             placeholder="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
-            className="border p-2 rounded"
+            className="form-control"
           />
-        </label>
-        <label>
-          Product Price:
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Product Price:</label>
           <input
             type="number"
             placeholder="Price"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
             required
-            className="border p-2 rounded"
+            className="form-control"
           />
-        </label>
-        <label>
-          Product Stock:
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Product Stock:</label>
           <input
             type="number"
             placeholder="Stock"
             value={stock}
             onChange={(e) => setStock(Number(e.target.value))}
-            className="border p-2 rounded"
+            className="form-control"
           />
-        </label>
+        </div>
+
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="btn btn-dark w-100"
           disabled={loading}
         >
           {loading ? "Creating..." : "Create Product"}
         </button>
       </form>
     </div>
+  </div>
+</div>
   );
 };
 

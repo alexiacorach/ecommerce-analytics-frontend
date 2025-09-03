@@ -48,62 +48,71 @@ export const SalesChartAdmin: React.FC = () => {
     }
   };
 
-  return (
-     <div className="p-6 bg-white shadow rounded-2xl">
-      <h2 className="text-xl font-semibold mb-4">📊 Sales per Period</h2>
+return (
+    <div className="container-fluid">
+      <div className="card shadow rounded-4 mb-4">
+        <div className="card-header bg-dark text-white">
+          📊 Sales per Period
+        </div>
+        <div className="card-body">
+          {/* Filtros */}
+          <div className="row g-3 mb-4">
+            <div className="col-md-3">
+              <label className="form-label">Start Date</label>
+              <input
+                type="date"
+                value={start}
+                onChange={(e) => setStart(e.target.value)}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">End Date</label>
+              <input
+                type="date"
+                value={end}
+                onChange={(e) => setEnd(e.target.value)}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Group by</label>
+              <select
+                value={groupBy}
+                onChange={(e) => setGroupBy(e.target.value)}
+                className="form-select"
+              >
+                <option value="day">Day</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+            <div className="col-md-3 d-flex align-items-end">
+              <button
+                onClick={fetchSales}
+                className="btn btn-primary w-100"
+              >
+                Search
+              </button>
+            </div>
+          </div>
 
-      {/* Filtros */}
-      <div className="flex gap-4 mb-6">
-        <div>
-          <label className="block text-sm">Start Date </label>
-          <input
-            type="date"
-            value={start}
-            onChange={(e) => setStart(e.target.value)}
-            className="border rounded p-1"
-          />
+          {/* Gráfico */}
+          <div style={{ width: "100%", height: 400 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={sales}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="totalSales" stroke="#4B0082" name="Sales ($)" />
+                <Line type="monotone" dataKey="totalOrders" stroke="#FF00FF" name="Orders" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm">End Date </label>
-          <input
-            type="date"
-            value={end}
-            onChange={(e) => setEnd(e.target.value)}
-            className="border rounded p-1"
-          />
-        </div>
-        <div>
-          <label className="block text-sm">Group by </label>
-          <select
-            value={groupBy}
-            onChange={(e) => setGroupBy(e.target.value)}
-            className="border rounded p-1"
-          >
-            <option value="day">Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
-          </select>
-        </div>
-        <button
-          onClick={fetchSales}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Search
-        </button>
       </div>
-
-      {/* Gráfico */}
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={sales}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="totalSales" stroke="#8884d8" name="Sales ($)" />
-          <Line type="monotone" dataKey="totalOrders" stroke="#82ca9d" name="Orders" />
-        </LineChart>
-      </ResponsiveContainer>
     </div>
-  )
+  );
 };

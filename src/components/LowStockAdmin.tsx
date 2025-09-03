@@ -26,51 +26,58 @@ export const LowStockAdmin: React.FC = () => {
     }
   };
 
-  return (
-    <div className="p-6 bg-white shadow rounded-2xl">
-      <h2 className="text-xl font-semibold mb-4">⚠️ Low Stock Products</h2>
-
-      <div className="flex gap-4 mb-4 items-end">
-        <div>
-          <label className="block text-sm">Stock Threshold</label>
-          <input
-            type="number"
-            min={1}
-            value={threshold}
-            onChange={(e) => setThreshold(parseInt(e.target.value))}
-            className="border rounded p-1"
-          />
-        </div>
-        <button
-          onClick={fetchLowStock}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Load Products
-        </button>
+return (
+    <div className="card mt-4 shadow">
+      <div className="card-header bg-dark text-white">
+        <h5 className="mb-0">⚠️ Low Stock Products</h5>
       </div>
+      <div className="card-body">
+        <div className="row g-2 mb-3 align-items-end">
+          <div className="col-auto">
+            <label className="form-label">Stock Threshold</label>
+            <input
+              type="number"
+              min={1}
+              value={threshold}
+              onChange={(e) => setThreshold(parseInt(e.target.value))}
+              className="form-control"
+            />
+          </div>
+          <div className="col-auto">
+            <button
+              onClick={fetchLowStock}
+              className="btn btn-dark"
+            >
+              Load Products
+            </button>
+          </div>
+        </div>
 
-      {products.length > 0 ? (
-        <table className="min-w-full border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 border">Name</th>
-              <th className="p-2 border">Stock</th>
-              <th className="p-2 border">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td className="p-2 border">{product.name}</td>
-                <td className="p-2 border">{product.stock}</td>
-                <td className="p-2 border">${product.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No products found with stock below {threshold}.</p>
-      )}
+        {products.length > 0 ? (
+          <div className="table-responsive">
+            <table className="table table-bordered table-hover">
+              <thead className="table-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product._id}>
+                    <td>{product.name}</td>
+                    <td>{product.stock}</td>
+                    <td>${product.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>No products found with stock below {threshold}.</p>
+        )}
+      </div>
     </div>
   );
 };

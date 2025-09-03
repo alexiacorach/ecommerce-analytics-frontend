@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                 }
                 to="/cart"
               >
-                <ShoppingCart /> Cart
+                Cart <ShoppingCart /> 
               </Link>
             </li>
 

@@ -47,32 +47,41 @@ export const TopCustomersAdmin: React.FC = () => {
     }
   };
 
-  return (
-    <div className="p-6 bg-white shadow rounded-2xl">
-      <h2 className="text-xl font-semibold mb-4">🏆 Top Customers</h2>
-      <button
-        onClick={fetchTopCustomers}
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Load Top Customers
-      </button>
 
-      {data.length > 0 ? (
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis yAxisId="left" orientation="left" />
-            <YAxis yAxisId="right" orientation="right" />
-            <Tooltip />
-            <Legend />
-            <Bar yAxisId="left" dataKey="totalSpent" fill="#8884d8" name="Total Spent ($)" />
-            <Bar yAxisId="right" dataKey="totalOrders" fill="#82ca9d" name="Total Orders" />
-          </BarChart>
-        </ResponsiveContainer>
-      ) : (
-        <p>No data yet. Click "Load Top Customers" to fetch.</p>
-      )}
+  return (
+    <div className="container-fluid">
+      <div className="card shadow rounded-4 mb-4">
+        <div className="card-header bg-dark text-white">
+          🏆 Top Customers
+        </div>
+        <div className="card-body">
+          <button
+            onClick={fetchTopCustomers}
+            className="btn btn-primary mb-3"
+          >
+            Load Top Customers
+          </button>
+
+          {data.length > 0 ? (
+            <div style={{ width: "100%", height: 400 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis yAxisId="left" orientation="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <Tooltip />
+                  <Legend />
+                  <Bar yAxisId="left" dataKey="totalSpent" fill="#4B0082" name="Total Spent ($)" />
+                  <Bar yAxisId="right" dataKey="totalOrders" fill="#FF00FF" name="Total Orders" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <p>No data yet. Click "Load Top Customers" to fetch.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -98,110 +98,114 @@ const AdminProducts: React.FC = () => {
 
   if (loading) return <p>Loading products...</p>;
 
-  return (
-  <div className="p-4">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-bold">All Products</h2>
-      <Link
-        to="/admin/products/create"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Create New Product
-      </Link>
+return (
+    <div className="p-4 vh-100 overflow-auto">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="fw-bold">All Products</h2>
+        <Link
+          to="/admin/products/create"
+          className="btn btn-secondary"
+        >
+          Create New Product
+        </Link>
+      </div>
+
+      <div className="table-responsive">
+        <table className="table table-bordered table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product._id}>
+                {editingProductId === product._id ? (
+                  <>
+                    <td>
+                      <input
+                        name="name"
+                        value={editForm.name}
+                        onChange={handleEditChange}
+                        className="form-control form-control-sm"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="category"
+                        value={editForm.category}
+                        onChange={handleEditChange}
+                        className="form-control form-control-sm"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="price"
+                        type="number"
+                        value={editForm.price}
+                        onChange={handleEditChange}
+                        className="form-control form-control-sm"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        name="stock"
+                        type="number"
+                        value={editForm.stock}
+                        onChange={handleEditChange}
+                        className="form-control form-control-sm"
+                      />
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-success btn-sm me-2"
+                        onClick={handleUpdate}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => setEditingProductId(null)}
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{product.name}</td>
+                    <td>{product.category}</td>
+                    <td>${product.price}</td>
+                    <td>{product.stock}</td>
+                    <td>
+                      <button
+                        className="btn btn-warning btn-sm text-white me-2"
+                        onClick={() => startEditing(product)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDelete(product._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <LowStockAdmin />
     </div>
-    <table className="min-w-full border border-gray-300">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="p-2 border">Name</th>
-          <th className="p-2 border">Category</th>
-          <th className="p-2 border">Price</th>
-          <th className="p-2 border">Stock</th>
-          <th className="p-2 border">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product) => (
-          <tr key={product._id}>
-            {editingProductId === product._id ? (
-              <>
-                <td className="p-2 border">
-                  <input
-                    name="name"
-                    value={editForm.name}
-                    onChange={handleEditChange}
-                    className="border px-1 py-0.5 w-full"
-                  />
-                </td>
-                <td className="p-2 border">
-                  <input
-                    name="category"
-                    value={editForm.category}
-                    onChange={handleEditChange}
-                    className="border px-1 py-0.5 w-full"
-                  />
-                </td>
-                <td className="p-2 border">
-                  <input
-                    name="price"
-                    type="number"
-                    value={editForm.price}
-                    onChange={handleEditChange}
-                    className="border px-1 py-0.5 w-full"
-                  />
-                </td>
-                <td className="p-2 border">
-                  <input
-                    name="stock"
-                    type="number"
-                    value={editForm.stock}
-                    onChange={handleEditChange}
-                    className="border px-1 py-0.5 w-full"
-                  />
-                </td>
-                <td className="p-2 border">
-                  <button
-                    className="bg-green-500 text-white px-2 py-1 rounded mr-2 hover:bg-green-600"
-                    onClick={handleUpdate}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="bg-gray-400 text-white px-2 py-1 rounded hover:bg-gray-500"
-                    onClick={() => setEditingProductId(null)}
-                  >
-                    Cancel
-                  </button>
-                </td>
-              </>
-            ) : (
-              <>
-                <td className="p-2 border">{product.name}</td>
-                <td className="p-2 border">{product.category}</td>
-                <td className="p-2 border">${product.price}</td>
-                <td className="p-2 border">{product.stock}</td>
-                <td className="p-2 border">
-                  <button
-                    className="bg-yellow-500 text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600"
-                    onClick={() => startEditing(product)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    <LowStockAdmin/>
-  </div>
-);
+  );
 };
 
 export default AdminProducts;

@@ -44,73 +44,82 @@ export const TopProductsAdmin: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white shadow rounded-2xl">
-      <h2 className="text-xl font-semibold mb-4">🏆 Top Products</h2>
+    <div className="container-fluid">
+      <div className="card shadow rounded-4 mb-4">
+        <div className="card-header bg-dark text-white">
+          🏆 Top Products
+        </div>
+        <div className="card-body">
+          {/* Filtros */}
+          <div className="row g-3 mb-4">
+            <div className="col-md-2">
+              <label className="form-label">Start Date</label>
+              <input
+                type="date"
+                value={start}
+                onChange={(e) => setStart(e.target.value)}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-2">
+              <label className="form-label">End Date</label>
+              <input
+                type="date"
+                value={end}
+                onChange={(e) => setEnd(e.target.value)}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Category</label>
+              <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="Optional"
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-2">
+              <label className="form-label">Limit</label>
+              <input
+                type="number"
+                value={limit}
+                onChange={(e) => setLimit(Number(e.target.value))}
+                className="form-control"
+              />
+            </div>
+            <div className="col-md-3 d-flex align-items-end">
+              <button
+                onClick={fetchTopProducts}
+                className="btn btn-primary w-100"
+              >
+                Fetch
+              </button>
+            </div>
+          </div>
 
-      {/* Filtros */}
-      <div className="flex gap-4 mb-6">
-        <div>
-          <label className="block text-sm">Start Date</label>
-          <input
-            type="date"
-            value={start}
-            onChange={(e) => setStart(e.target.value)}
-            className="border rounded p-1"
-          />
+          {/* Gráfic */}
+          {data.length > 0 ? (
+            <div style={{ width: "100%", height: 400 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis yAxisId="left" orientation="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <Tooltip />
+                  <Legend />
+                  <Bar yAxisId="left" dataKey="unitsSold" fill="#4B0082" name="Units Sold" />
+                  <Bar yAxisId="right" dataKey="revenue" fill="#FF00FF" name="Revenue ($)" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <p>No data to display.</p>
+          )}
         </div>
-        <div>
-          <label className="block text-sm">End Date</label>
-          <input
-            type="date"
-            value={end}
-            onChange={(e) => setEnd(e.target.value)}
-            className="border rounded p-1"
-          />
-        </div>
-        <div>
-          <label className="block text-sm">Category</label>
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="Optional"
-            className="border rounded p-1"
-          />
-        </div>
-        <div>
-          <label className="block text-sm">Limit</label>
-          <input
-            type="number"
-            value={limit}
-            onChange={(e) => setLimit(Number(e.target.value))}
-            className="border rounded p-1 w-16"
-          />
-        </div>
-        <button
-          onClick={fetchTopProducts}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Fetch
-        </button>
       </div>
-
-      {/* Gráfico */}
-      {data.length > 0 ? (
-        <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis yAxisId="left" orientation="left" />
-          <YAxis yAxisId="right" orientation="right" />
-          <Tooltip />
-          <Legend />
-          <Bar yAxisId="left" dataKey="unitsSold" fill="#8884d8" name="Units Sold" />
-          <Bar yAxisId="right" dataKey="revenue" fill="#82ca9d" name="Revenue ($)" />
-        </BarChart>
-      </ResponsiveContainer>
-      ) : (
-        <p>No data to display.</p>
-      )}
     </div>
   );
 };

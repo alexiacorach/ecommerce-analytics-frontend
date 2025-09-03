@@ -3,9 +3,12 @@ import SidebarAdmin from "./SidebarAdmin";
 
 const LayoutAdmin = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="d-flex min-vh-100">
+      {/* Sidebar */}
       <SidebarAdmin />
-      <main style={{ flex: 1, padding: "20px" }}>
+
+      {/* Main content */}
+      <main className="flex-fill overflow-auto bg-light">
         <Outlet />
       </main>
     </div>

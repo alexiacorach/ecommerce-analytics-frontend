@@ -30,7 +30,7 @@ export const TopProductsAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `http://54.90.190.57:5000/api/analytics/top-products`,
+        `http://54.90.190.57/api/analytics/top-products`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: { start, end, category, limit },

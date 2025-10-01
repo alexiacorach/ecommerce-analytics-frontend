@@ -57,7 +57,7 @@ const CheckoutForm: React.FC = () => {
       }
 
       const res = await axios.post(
-        "http://54.90.190.57:5000/api/orders",
+        "http://54.90.190.57/api/orders",
         {
           items: cartItems.map((item) => ({
             product: item._id,

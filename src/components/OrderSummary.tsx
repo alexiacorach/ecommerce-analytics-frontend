@@ -14,7 +14,7 @@ const OrderSummary = () => {
         return;
       }
 
-      const res = await axios.get("http://54.90.190.57:5000/api/orders", {
+      const res = await axios.get("http://54.90.190.57/api/orders", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -36,7 +36,7 @@ const OrderSummary = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://54.90.190.57:5000/api/orders/${orderId}/cancel`,
+        `http://54.90.190.57/api/orders/${orderId}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -17,7 +17,7 @@ const AdminCreateProduct: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://54.90.190.57:5000/api/products",
+        "http://54.90.190.57/api/products",
         { name, category, price, stock },
         { headers: { Authorization: `Bearer ${token}` } }
       );

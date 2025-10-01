@@ -27,7 +27,7 @@ export const SalesChartAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
         const res = await axios.get(
-      `http://54.90.190.57:5000/api/analytics/sales?start=${start}&end=${end}&groupBy=${groupBy}`,
+      `http://54.90.190.57/api/analytics/sales?start=${start}&end=${end}&groupBy=${groupBy}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

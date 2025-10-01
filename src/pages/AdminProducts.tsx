@@ -25,7 +25,7 @@ const AdminProducts: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/products", {
+      const res = await axios.get("http://54.90.190.57:5000/api/products", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(res.data);
@@ -46,7 +46,7 @@ const AdminProducts: React.FC = () => {
 
     try {
       const token = localStorage.getItem("token"); // asumiendo auth JWT
-      await axios.delete(`http://localhost:5000/api/products/${productId}`, {
+      await axios.delete(`http://54.90.190.57:5000/api/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -79,7 +79,7 @@ const AdminProducts: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:5000/api/products/${editingProductId}`,
+        `http://54.90.190.57:5000/api/products/${editingProductId}`,
         editForm,
         { headers: { Authorization: `Bearer ${token}` } }
       );

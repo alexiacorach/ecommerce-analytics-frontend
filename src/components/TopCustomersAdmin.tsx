@@ -27,7 +27,7 @@ export const TopCustomersAdmin: React.FC = () => {
   const fetchTopCustomers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/analytics/top-customers", {
+      const res = await axios.get("http://54.90.190.57:5000/api/analytics/top-customers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

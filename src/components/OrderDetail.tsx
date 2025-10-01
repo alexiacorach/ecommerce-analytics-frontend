@@ -14,7 +14,7 @@ const OrderDetail = () => {
         alert("You must be logged in to see order details");
         return;
       }
-      const res = await axios.get(`http://localhost:5000/api/orders/${id}`, {
+      const res = await axios.get(`http://54.90.190.57:5000/api/orders/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrder(res.data);
@@ -31,7 +31,7 @@ const OrderDetail = () => {
       if (!token) return;
 
       await axios.put(
-        `http://localhost:5000/api/orders/${id}/pay`,
+        `http://54.90.190.57:5000/api/orders/${id}/pay`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

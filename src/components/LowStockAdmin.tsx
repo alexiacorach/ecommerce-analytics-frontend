@@ -16,7 +16,7 @@ export const LowStockAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `http://localhost:5000/api/analytics/low-stock?threshold=${threshold}`,
+        `http://54.90.190.57:5000/api/analytics/low-stock?threshold=${threshold}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setProducts(res.data);

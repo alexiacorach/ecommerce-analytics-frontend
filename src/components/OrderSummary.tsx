@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const OrderSummary = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -14,7 +15,7 @@ const OrderSummary = () => {
         return;
       }
 
-      const res = await axios.get("http://54.90.190.57/api/orders", {
+      const res = await axios.get(`${API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -36,7 +37,7 @@ const OrderSummary = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://54.90.190.57/api/orders/${orderId}/cancel`,
+        `${API_URL}/api/orders/${orderId}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

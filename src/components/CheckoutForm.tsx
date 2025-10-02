@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface CartItem {
   _id: string;
@@ -57,7 +58,7 @@ const CheckoutForm: React.FC = () => {
       }
 
       const res = await axios.post(
-        "http://54.90.190.57/api/orders",
+        `${API_URL}/api/orders`,
         {
           items: cartItems.map((item) => ({
             product: item._id,

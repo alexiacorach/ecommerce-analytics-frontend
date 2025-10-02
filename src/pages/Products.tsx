@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Product {
   _id: string;
@@ -18,7 +19,7 @@ const Product: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://54.90.190.57/api/products");
+        const res = await axios.get(`${API_URL}/api/products`);
         setProducts(res.data);
       } catch (error) {
         console.error("Error fetching products", error);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState<any[]>([]);
@@ -9,7 +10,7 @@ const AdminOrders = () => {
     const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://54.90.190.57/api/orders/all", {
+      const res = await axios.get(`${API_URL}/api/orders/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders(res.data);
@@ -29,7 +30,7 @@ const AdminOrders = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://54.90.190.57/api/orders/${orderId}/status`,
+        `${API_URL}/api/orders/${orderId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

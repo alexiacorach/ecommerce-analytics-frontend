@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { LowStockAdmin } from "../components/LowStockAdmin";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Product {
   _id: string;
@@ -25,7 +26,7 @@ const AdminProducts: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://54.90.190.57/api/products", {
+      const res = await axios.get(`${API_URL}/api/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts(res.data);
@@ -46,7 +47,7 @@ const AdminProducts: React.FC = () => {
 
     try {
       const token = localStorage.getItem("token"); // asumiendo auth JWT
-      await axios.delete(`http://54.90.190.57/api/products/${productId}`, {
+      await axios.delete(`${API_URL}/api/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -79,7 +80,7 @@ const AdminProducts: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://54.90.190.57/api/products/${editingProductId}`,
+        `${API_URL}/api/products/${editingProductId}`,
         editForm,
         { headers: { Authorization: `Bearer ${token}` } }
       );

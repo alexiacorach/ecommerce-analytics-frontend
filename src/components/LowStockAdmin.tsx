@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface LowStockProduct {
   _id: string;
@@ -16,7 +17,7 @@ export const LowStockAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `http://54.90.190.57/api/analytics/low-stock?threshold=${threshold}`,
+        `${API_URL}/api/analytics/low-stock?threshold=${threshold}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setProducts(res.data);

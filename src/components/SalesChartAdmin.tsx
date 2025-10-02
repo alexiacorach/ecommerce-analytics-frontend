@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 import {
   LineChart,
   Line,
@@ -27,7 +28,7 @@ export const SalesChartAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
         const res = await axios.get(
-      `http://54.90.190.57/api/analytics/sales?start=${start}&end=${end}&groupBy=${groupBy}`,
+      `${API_URL}/api/analytics/sales?start=${start}&end=${end}&groupBy=${groupBy}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

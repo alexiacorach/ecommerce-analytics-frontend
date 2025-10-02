@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 import axios from "axios";
 import {
   BarChart,
@@ -30,7 +31,7 @@ export const TopProductsAdmin: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `http://54.90.190.57/api/analytics/top-products`,
+        `${API_URL}/api/analytics/top-products`,
         {
           headers: { Authorization: `Bearer ${token}` },
           params: { start, end, category, limit },

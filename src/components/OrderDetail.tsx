@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const OrderDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +15,7 @@ const OrderDetail = () => {
         alert("You must be logged in to see order details");
         return;
       }
-      const res = await axios.get(`http://54.90.190.57/api/orders/${id}`, {
+      const res = await axios.get(`${API_URL}/api/orders/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrder(res.data);
@@ -31,7 +32,7 @@ const OrderDetail = () => {
       if (!token) return;
 
       await axios.put(
-        `http://54.90.190.57/api/orders/${id}/pay`,
+        `${API_URL}/api/orders/${id}/pay`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

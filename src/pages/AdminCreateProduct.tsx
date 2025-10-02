@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminCreateProduct: React.FC = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AdminCreateProduct: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://54.90.190.57/api/products",
+        `${API_URL}/api/products`,
         { name, category, price, stock },
         { headers: { Authorization: `Bearer ${token}` } }
       );
